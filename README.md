@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XIAOLV 作品集 | 复刻演示</title>
+    <title>XIAOLV 作品集 | 个人网站</title>
     <style>
         /* ===== 基础重置 ===== */
         * {
@@ -55,7 +55,7 @@
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 24px;
             list-style: none;
             font-size: 13px;
             letter-spacing: 1px;
@@ -255,6 +255,15 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+            pointer-events: none;
+        }
+
+        /* 让图片自适应铺满容器 */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* ===== 不同区块的强调色 ===== */
@@ -394,13 +403,15 @@
 
     <!-- 顶部导航 -->
     <header class="top-bar">
-        <div class="logo">XIE YI</div>
+        <div class="logo">XIAOLV</div>
         <nav>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#hero">Home</a></li>
-                <li><a href="#characters">Characters</a></li>
-                <li><a href="#environment">Environment</a></li>
-                <li><a href="#props">Props</a></li>
+                <li><a href="#characters">现代都市</a></li>
+                <li><a href="#environment">概念设计</a></li>
+                <li><a href="#props">古装剧</a></li>
+                <li><a href="#overseas">海外真人</a></li>
+                <li><a href="#animation">3D国漫</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -413,7 +424,7 @@
 
     <!-- 首屏 -->
     <section class="hero" id="hero">
-        <h1 class="hero-title">XIE YI</h1>
+        <h1 class="hero-title">XIAOLV</h1>
         <p class="hero-subtitle">ART DESIGNER · 作品集</p>
         <p class="hero-desc">
             用AI技术开创无限视觉可能，为项目赋予契合的视觉语言
@@ -435,13 +446,14 @@
         <div class="scroll-hint">Scroll</div>
     </section>
 
-    <!-- 现代都市 -->
+    <!-- 01 现代都市 -->
     <section class="section" id="characters">
         <div class="section-inner">
-            <div class="section-tag">01 / Characters</div>
+            <div class="section-tag">01 / Modern City</div>
             <h2 class="section-title">现代都市</h2>
             <p class="section-desc">人物角色设计 · 都市题材视觉资产</p>
             <div class="gallery-grid">
+                <!-- 替换图片示例：<div class="gallery-item"><img src="1.jpg" alt="角色 01"></div> -->
                 <div class="gallery-item">角色 01</div>
                 <div class="gallery-item">角色 02</div>
                 <div class="gallery-item">角色 03</div>
@@ -450,12 +462,12 @@
         </div>
     </section>
 
-    <!-- 玄幻修仙 -->
+    <!-- 02 概念设计 -->
     <section class="section" id="environment">
         <div class="section-inner">
-            <div class="section-tag">02 / Environment</div>
-            <h2 class="section-title">玄幻修仙</h2>
-            <p class="section-desc">场景环境设计 · 东方玄幻视觉语言</p>
+            <div class="section-tag">02 / Concept Art</div>
+            <h2 class="section-title">概念设计</h2>
+            <p class="section-desc">概念设计 · 东方与未来视觉语言</p>
             <div class="gallery-grid">
                 <div class="gallery-item">场景 01</div>
                 <div class="gallery-item">场景 02</div>
@@ -464,10 +476,10 @@
         </div>
     </section>
 
-    <!-- 古装剧 -->
+    <!-- 03 古装剧 -->
     <section class="section" id="props">
         <div class="section-inner">
-            <div class="section-tag">03 / Props</div>
+            <div class="section-tag">03 / Costume Drama</div>
             <h2 class="section-title">古装剧</h2>
             <p class="section-desc">道具与角色设计 · 古装剧视觉资产</p>
             <div class="gallery-grid">
@@ -479,12 +491,12 @@
         </div>
     </section>
 
-    <!-- 民国剧 -->
-    <section class="section">
+    <!-- 04 海外真人 -->
+    <section class="section" id="overseas">
         <div class="section-inner">
-            <div class="section-tag">04 / Period Drama</div>
-            <h2 class="section-title">民国剧</h2>
-            <p class="section-desc">民国题材视觉设计 · 角色与环境</p>
+            <div class="section-tag">04 / Overseas Live-Action</div>
+            <h2 class="section-title">海外真人</h2>
+            <p class="section-desc">海外真人影视视觉设计 · 角色与环境</p>
             <div class="gallery-grid">
                 <div class="gallery-item">角色 01</div>
                 <div class="gallery-item">场景 01</div>
@@ -493,12 +505,12 @@
         </div>
     </section>
 
-    <!-- 3D动漫 -->
-    <section class="section">
+    <!-- 05 3D国漫 -->
+    <section class="section" id="animation">
         <div class="section-inner">
             <div class="section-tag">05 / 3D Animation</div>
-            <h2 class="section-title">3D动漫</h2>
-            <p class="section-desc">3D动漫风格 · 角色与环境设计</p>
+            <h2 class="section-title">3D国漫</h2>
+            <p class="section-desc">3D国漫风格 · 角色与环境设计</p>
             <div class="gallery-grid">
                 <div class="gallery-item">角色 01</div>
                 <div class="gallery-item">角色 02</div>
@@ -529,12 +541,14 @@
             </div>
         </div>
         <div class="footer">
-            <span>© 2026 XIAO LV. ALL RIGHTS RESERVED.</span>
+            <span>© 2026 XIAOLV. ALL RIGHTS RESERVED.</span>
             <div class="footer-links">
-                <a href="#hero">ART</a>
-                <a href="#characters">DESIGN</a>
-                <a href="#environment">CHARACTER</a>
-                <a href="#props">ENVIRONMENT</a>
+                <a href="#hero">HOME</a>
+                <a href="#characters">MODERN</a>
+                <a href="#environment">CONCEPT</a>
+                <a href="#props">COSTUME</a>
+                <a href="#overseas">OVERSEAS</a>
+                <a href="#animation">3D</a>
             </div>
         </div>
     </section>
