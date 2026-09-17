@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XIEYI 作品集 | 复刻演示</title>
+    <style>
+        /* ===== 基础重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.55);
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            transition: 0.3s;
+        }
+
+        /* ===== 首屏 Hero ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 40%, rgba(60, 120, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 10vw, 120px);
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: #fff;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(14px, 1.8vw, 18px);
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 4px;
+            margin-top: 16px;
+            z-index: 1;
+        }
+
+        .hero-desc {
+            max-width: 640px;
+            margin-top: 28px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+            z-index: 1;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 60px;
+            margin-top: 56px;
+            z-index: 1;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .num {
+            font-size: 36px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .hero-stat .label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 2px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.25);
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.25; }
+            50% { opacity: 0.6; }
+        }
+
+        /* ===== 作品区块通用 ===== */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 100px 40px;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-tag {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.25);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 72px);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            max-width: 560px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+            margin-bottom: 48px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 3 / 4;
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 13px;
+            letter-spacing: 2px;
+            transition: border-color 0.3s, transform 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+        }
+
+        /* ===== 不同区块的强调色 ===== */
+        .section:nth-of-type(2) .section-tag { color: #6b8aff; }
+        .section:nth-of-type(3) .section-tag { color: #ff6b9d; }
+        .section:nth-of-type(4) .section-tag { color: #ffb86b; }
+        .section:nth-of-type(5) .section-tag { color: #6bffb8; }
+        .section:nth-of-type(6) .section-tag { color: #b86bff; }
+
+        /* ===== 底部联系 ===== */
+        .contact-section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 40px 60px;
+        }
+
+        .contact-section .section-title {
+            margin-bottom: 16px;
+        }
+
+        .contact-section .section-desc {
+            max-width: 520px;
+            text-align: center;
+            margin: 0 auto 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-item .label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        .contact-item .value {
+            font-size: 15px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .footer {
+            width: 100%;
+            padding: 32px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.25);
+            text-transform: uppercase;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        /* ===== 移动端 ===== */
+        @media (max-width: 768px) {
+            .top-bar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 64px);
+                background: rgba(10, 10, 10, 0.97);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 40px;
+                font-size: 20px;
+                transform: translateY(-100%);
+                transition: transform 0.4s ease;
+            }
+
+            .nav-links.open {
+                transform: translateY(0);
+            }
+
+            .menu-btn {
+                display: flex;
+            }
+
+            .hero-stats {
+                gap: 32px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .section {
+                padding: 80px 20px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <header class="top-bar">
+        <div class="logo">XIE YI</div>
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#characters">Characters</a></li>
+                <li><a href="#environment">Environment</a></li>
+                <li><a href="#props">Props</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="menu-btn" id="menuBtn" aria-label="菜单">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- 首屏 -->
+    <section class="hero" id="hero">
+        <h1 class="hero-title">XIE YI</h1>
+        <p class="hero-subtitle">ART DESIGNER · 作品集</p>
+        <p class="hero-desc">
+            用AI技术开创无限视觉可能，为项目赋予契合的视觉语言
+        </p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="num">1000+</div>
+                <div class="label">资产设计</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">20+</div>
+                <div class="label">项目经验</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">2</div>
+                <div class="label">超精品项目</div>
+            </div>
+        </div>
+        <div class="scroll-hint">Scroll</div>
+    </section>
+
+    <!-- 现代都市 -->
+    <section class="section" id="characters">
+        <div class="section-inner">
+            <div class="section-tag">01 / Characters</div>
+            <h2 class="section-title">现代都市</h2>
+            <p class="section-desc">人物角色设计 · 都市题材视觉资产</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">角色 01</div>
+                <div class="gallery-item">角色 02</div>
+                <div class="gallery-item">角色 03</div>
+                <div class="gallery-item">角色 04</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 玄幻修仙 -->
+    <section class="section" id="environment">
+        <div class="section-inner">
+            <div class="section-tag">02 / Environment</div>
+            <h2 class="section-title">玄幻修仙</h2>
+            <p class="section-desc">场景环境设计 · 东方玄幻视觉语言</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">场景 01</div>
+                <div class="gallery-item">场景 02</div>
+                <div class="gallery-item">场景 03</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 古装剧 -->
+    <section class="section" id="props">
+        <div class="section-inner">
+            <div class="section-tag">03 / Props</div>
+            <h2 class="section-title">古装剧</h2>
+            <p class="section-desc">道具与角色设计 · 古装剧视觉资产</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">道具 01</div>
+                <div class="gallery-item">道具 02</div>
+                <div class="gallery-item">角色 01</div>
+                <div class="gallery-item">角色 02</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 民国剧 -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="section-tag">04 / Period Drama</div>
+            <h2 class="section-title">民国剧</h2>
+            <p class="section-desc">民国题材视觉设计 · 角色与环境</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">角色 01</div>
+                <div class="gallery-item">场景 01</div>
+                <div class="gallery-item">道具 01</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D动漫 -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="section-tag">05 / 3D Animation</div>
+            <h2 class="section-title">3D动漫</h2>
+            <p class="section-desc">3D动漫风格 · 角色与环境设计</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">角色 01</div>
+                <div class="gallery-item">角色 02</div>
+                <div class="gallery-item">场景 01</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部联系 -->
+    <section class="contact-section" id="contact">
+        <div class="section-tag" style="color:#6b8aff;">Contact</div>
+        <h2 class="section-title" style="font-size: clamp(28px, 4vw, 56px);">感谢观看</h2>
+        <p class="section-desc">
+            If you would like to learn more about what we do or just want to say hello, don't hesitate to contact us! We look forward to hearing from you.
+        </p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="label">Phone</span>
+                <span class="value">1736454860</span>
+            </div>
+            <div class="contact-item">
+                <span class="label">WeChat</span>
+                <span class="value">x2650534502</span>
+            </div>
+            <div class="contact-item">
+                <span class="label">Email</span>
+                <span class="value">2650534502@qq.com</span>
+            </div>
+        </div>
+        <div class="footer">
+            <span>© 2026 XIE YI. ALL RIGHTS RESERVED.</span>
+            <div class="footer-links">
+                <a href="#hero">ART</a>
+                <a href="#characters">DESIGN</a>
+                <a href="#environment">CHARACTER</a>
+                <a href="#props">ENVIRONMENT</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // 点击导航链接后关闭菜单
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // 滚动时导航栏背景变化
+        const topBar = document.querySelector('.top-bar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                topBar.style.background = 'rgba(10, 10, 10, 0.95)';
+            } else {
+                topBar.style.background = 'rgba(10, 10, 10, 0.85)';
+            }
+        });
+    </script>
+
+</body>
+</html>
